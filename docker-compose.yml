@@ -15,7 +15,7 @@ services:
     networks:
       - internal
     volumes:
-      - ./app/:/app/
+      # - ./app/:/app/
       - ./logs/nginx:/var/log/nginx/
     depends_on:
       mysql-db:
@@ -72,7 +72,7 @@ services:
       - TTRSS_DB_PORT=3306
       - container=true
     volumes:
-      - ./app/:/var/www/html/
+      # - ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
     depends_on:
       mysql-db:
