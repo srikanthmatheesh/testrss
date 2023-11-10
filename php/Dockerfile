@@ -10,7 +10,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql \
     && docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
-COPY ./app/ /app
+# COPY ./app/ /app
 
 WORKDIR /app
 
