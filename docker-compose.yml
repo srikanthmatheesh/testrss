@@ -1,0 +1,114 @@
+version: "3.8"
+services:
+  
+# Web Service
+  nginx:
+    build:
+      context: https://git.tt-rss.org/fox/tt-rss.git
+      dockerfile: nginx/Dockerfile
+      args:
+        - container_name=webservice
+    restart: unless-stopped
+    container_name: webservice
+    ports:
+      - "8080:80"
+    networks:
+      - internal
+    volumes:
+      - ./app/:/app/
+      - ./logs/nginx:/var/log/nginx/
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+
+# MySQL Service
+  mysql-db:
+    image: mysql:latest
+    container_name: mysql-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "3306:3306"
+    expose:
+      - "3306"
+    volumes:
+      - ./run/var:/var/lib/mysql
+    command: --default-authentication-plugin=mysql_native_password
+    environment:
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_ROOT_PASSWORD=securerootpassword
+      - MYSQL_DATABASE=tt-rss
+      #- MYSQL_USER=root
+      - MYSQL_PASSWORD=securerootpassword
+    networks:
+      - internal
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+      interval: 60s
+      retries: 5
+      start_period: 20s
+      timeout: 10s
+
+
+# App Service
+  php:
+    build:
+      context: https://git.tt-rss.org/fox/tt-rss.git
+      dockerfile: php/Dockerfile
+      args:
+        - container_name=backend
+    restart: unless-stopped
+    container_name: backend
+    # command: ["php", "/app/update.php", "--update-schema=force-yes"]
+    networks:
+      - internal
+    environment:
+      - TTRSS_DB_HOST=mysql-db
+      - TTRSS_DB_NAME=tt-rss
+      - TTRSS_DB_USER=root
+      - TTRSS_DB_PASS=securerootpassword
+      # - TTRSS_SELF_URL_PATH={$host}
+      - TTRSS_PHP_EXECUTABLE=php
+      - TTRSS_DB_TYPE=mysql
+      - TTRSS_DB_PORT=3306
+      - container=true
+    volumes:
+      - ./app/:/var/www/html/
+      - ./logs/php.log:/var/log/fpm-php.www.log
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+
+# Scheduler Service
+  scheduler:
+    build:
+      context: https://git.tt-rss.org/fox/tt-rss.git
+      dockerfile: php/Dockerfile
+      args:
+        - container_name=scheduler
+    restart: unless-stopped
+    container_name: scheduler
+    command: ["php", "/app/update_daemon2.php"]
+    networks:
+      - internal
+    environment:
+      - TTRSS_DB_HOST=mysql-db
+      - TTRSS_DB_NAME=tt-rss
+      - TTRSS_DB_USER=root
+      - TTRSS_DB_PASS=securerootpassword
+      # - TTRSS_SELF_URL_PATH={$host}
+      - TTRSS_PHP_EXECUTABLE=php
+      - TTRSS_DB_TYPE=mysql
+      - TTRSS_DB_PORT=3306
+      - container=true
+    volumes:
+      - ./app/:/var/www/html/
+      - ./logs/php.log:/var/log/fpm-php.www.log
+    depends_on:
+      mysql-db:
+        condition: service_healthy
+
+# Network
+networks:
+  internal:
+    driver: bridge
