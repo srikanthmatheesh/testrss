@@ -4,7 +4,7 @@ services:
 # Web Service
   nginx:
     build:
-      context: https://git.tt-rss.org/fox/tt-rss.git
+      context: .
       dockerfile: nginx/Dockerfile
       args:
         - container_name=webservice
@@ -49,11 +49,10 @@ services:
       start_period: 20s
       timeout: 10s
 
-
 # App Service
   php:
     build:
-      context: https://git.tt-rss.org/fox/tt-rss.git
+      context: .
       dockerfile: php/Dockerfile
       args:
         - container_name=backend
@@ -82,7 +81,7 @@ services:
 # Scheduler Service
   scheduler:
     build:
-      context: https://git.tt-rss.org/fox/tt-rss.git
+      context: .
       dockerfile: php/Dockerfile
       args:
         - container_name=scheduler
