@@ -58,7 +58,7 @@ services:
         - container_name=backend
     restart: unless-stopped
     container_name: backend
-    # command: ["php", "/app/update.php", "--update-schema=force-yes"]
+    command: ["php", "/app/update.php", "--update-schema=force-yes"]
     networks:
       - internal
     environment:
