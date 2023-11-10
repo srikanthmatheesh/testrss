@@ -1,6 +1,6 @@
 FROM php:fpm-alpine AS phpbase
 
-RUN apk add icu-dev
+RUN apk add icu-dev git
 
 RUN docker-php-ext-install mysqli pdo pdo_mysql \
     && docker-php-ext-enable mysqli \
