@@ -71,7 +71,6 @@ services:
       - TTRSS_PHP_EXECUTABLE=php
       - TTRSS_DB_TYPE=mysql
       - TTRSS_DB_PORT=3306
-      - container=true
     volumes:
       # - ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
@@ -99,7 +98,6 @@ services:
       - TTRSS_PHP_EXECUTABLE=php
       - TTRSS_DB_TYPE=mysql
       - TTRSS_DB_PORT=3306
-      - container=true
     command: ["php", "/app/update.php", "--update-schema=force-yes"]
     volumes:
       # - ./app/:/var/www/html/
@@ -129,7 +127,6 @@ services:
       - TTRSS_PHP_EXECUTABLE=php
       - TTRSS_DB_TYPE=mysql
       - TTRSS_DB_PORT=3306
-      - container=true
     volumes:
       #- ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
