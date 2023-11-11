@@ -62,7 +62,16 @@ services:
     container_name: php-backend
     networks:
       - internal
-    env_file: .env
+    environment:
+      - TTRSS_DB_HOST=mysql-db
+      - TTRSS_DB_NAME=tt-rss
+      - TTRSS_DB_USER=root
+      - TTRSS_DB_PASS=securerootpassword
+      # - TTRSS_SELF_URL_PATH={$host}
+      - TTRSS_PHP_EXECUTABLE=php
+      - TTRSS_DB_TYPE=mysql
+      - TTRSS_DB_PORT=3306
+      - container=true
     volumes:
       # - ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
@@ -81,7 +90,16 @@ services:
     container_name: schema-backend
     networks:
       - internal
-    env_file: .env
+    environment:
+      - TTRSS_DB_HOST=mysql-db
+      - TTRSS_DB_NAME=tt-rss
+      - TTRSS_DB_USER=root
+      - TTRSS_DB_PASS=securerootpassword
+      # - TTRSS_SELF_URL_PATH={$host}
+      - TTRSS_PHP_EXECUTABLE=php
+      - TTRSS_DB_TYPE=mysql
+      - TTRSS_DB_PORT=3306
+      - container=true
     command: ["php", "/app/update.php", "--update-schema=force-yes"]
     volumes:
       # - ./app/:/var/www/html/
@@ -102,7 +120,16 @@ services:
     command: ["php", "/app/update_daemon2.php"]
     networks:
       - internal
-    env_file: .env
+    environment:
+      - TTRSS_DB_HOST=mysql-db
+      - TTRSS_DB_NAME=tt-rss
+      - TTRSS_DB_USER=root
+      - TTRSS_DB_PASS=securerootpassword
+      # - TTRSS_SELF_URL_PATH={$host}
+      - TTRSS_PHP_EXECUTABLE=php
+      - TTRSS_DB_TYPE=mysql
+      - TTRSS_DB_PORT=3306
+      - container=true
     volumes:
       #- ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
