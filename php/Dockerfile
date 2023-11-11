@@ -14,6 +14,8 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql \
 
 RUN git clone https://git.tt-rss.org/fox/tt-rss.git /app
 
+RUN git config --global --add safe.directory /app
+
 WORKDIR /app
 
 RUN chmod -R 0777 ./cache ./feed-icons ./lock
