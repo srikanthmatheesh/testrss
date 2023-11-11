@@ -12,7 +12,7 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql \
 
 FROM scratch
 
-COPY --from=phpbase /app /app
+COPY --from=phpbase
 
 RUN git clone https://git.tt-rss.org/fox/tt-rss.git /app
 
