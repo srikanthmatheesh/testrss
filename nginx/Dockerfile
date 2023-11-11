@@ -5,8 +5,10 @@ RUN apk add git
 
 RUN git clone https://git.tt-rss.org/fox/tt-rss.git /app
 
-RUN git config --global --add safe.directory /app
+# RUN git config --global --add safe.directory /app
 
 WORKDIR /app
+
+RUN rm -rf .git
 
 RUN chmod -R 0777 ./cache ./feed-icons ./lock
