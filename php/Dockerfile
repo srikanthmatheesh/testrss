@@ -14,10 +14,10 @@ RUN git clone https://git.tt-rss.org/fox/tt-rss.git /app
 
 WORKDIR /app
 
+RUN rm -rf .git
+
 FROM scratch
 
 COPY --from=phpbase /app /app
-
-RUN rm -rf .git
 
 RUN chmod -R 0777 ./cache ./feed-icons ./lock
