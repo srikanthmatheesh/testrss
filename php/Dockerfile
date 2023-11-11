@@ -15,9 +15,8 @@ RUN git clone https://git.tt-rss.org/fox/tt-rss.git /app
 WORKDIR /app
 
 RUN rm -rf .git
+RUN chmod -R 0777 ./cache ./feed-icons ./lock
 
 FROM scratch
 
 COPY --from=phpbase /app /app
-
-RUN chmod -R 0777 ./cache ./feed-icons ./lock
