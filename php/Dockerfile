@@ -10,10 +10,6 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql \
     && docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
-FROM scratch
-
-COPY --from=phpbase / /
-
 RUN git clone https://git.tt-rss.org/fox/tt-rss.git /app
 
 WORKDIR /app
