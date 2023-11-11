@@ -18,7 +18,8 @@ services:
       # - ./app/:/app/
       - ./logs/nginx:/var/log/nginx/
     depends_on:
-      - php-backend
+      php-backend:
+        condition: service_started
       mysql-db:
         condition: service_healthy
 
