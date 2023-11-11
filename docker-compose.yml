@@ -62,8 +62,7 @@ services:
     container_name: php-backend
     networks:
       - internal
-    env_file:
-      - .env
+    env_file: .env
     volumes:
       # - ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
@@ -82,8 +81,7 @@ services:
     container_name: schema-backend
     networks:
       - internal
-    env_file:
-      - .env
+    env_file: .env
     command: ["php", "/app/update.php", "--update-schema=force-yes"]
     volumes:
       # - ./app/:/var/www/html/
@@ -104,8 +102,7 @@ services:
     command: ["php", "/app/update_daemon2.php"]
     networks:
       - internal
-    env_file:
-      - .env
+    env_file: .env
     volumes:
       #- ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
