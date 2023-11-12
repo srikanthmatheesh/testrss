@@ -11,3 +11,7 @@ RUN rm -rf .git
 WORKDIR /app
 
 RUN chmod -R 0777 ./cache ./feed-icons ./lock
+
+RUN adduser -D --shell /bin/sh tt-rss
+
+USER ttrss
