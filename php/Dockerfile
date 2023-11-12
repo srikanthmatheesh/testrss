@@ -22,7 +22,6 @@ RUN chmod -R 0777 ./cache ./feed-icons ./lock
 RUN adduser \
     --disabled-password \
     --gecos "" \
-    --ingroup docker \
     ttrs
 
 USER ttrss
