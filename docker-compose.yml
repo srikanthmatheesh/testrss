@@ -10,6 +10,7 @@ services:
         - container_name=webservice
     restart: unless-stopped
     container_name: webservice
+    user: ${CURRENT_UID}
     ports:
       - "8080:80"
     networks:
@@ -71,6 +72,7 @@ services:
       - TTRSS_PHP_EXECUTABLE=php
       - TTRSS_DB_TYPE=mysql
       - TTRSS_DB_PORT=3306
+    user: ${CURRENT_UID}
     volumes:
       # - ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
@@ -99,6 +101,7 @@ services:
       - TTRSS_DB_TYPE=mysql
       - TTRSS_DB_PORT=3306
     command: ["php", "/app/update.php", "--update-schema=force-yes"]
+    user: ${CURRENT_UID}
     volumes:
       # - ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
@@ -127,6 +130,7 @@ services:
       - TTRSS_PHP_EXECUTABLE=php
       - TTRSS_DB_TYPE=mysql
       - TTRSS_DB_PORT=3306
+    user: ${CURRENT_UID}
     volumes:
       #- ./app/:/var/www/html/
       - ./logs/php.log:/var/log/fpm-php.www.log
