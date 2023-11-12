@@ -18,6 +18,6 @@ RUN rm -rf .git
 
 RUN chmod -R 0777 ./cache ./feed-icons ./lock
 
-RUN adduser ttrs --disabled-password 
+RUN adduser -D --shell /bin/sh tt-rss
 
 USER ttrss
