@@ -82,29 +82,29 @@ services:
       #   condition: service_completed_successfully
 
 # Schema Service
-  schema-backend:
-    build:
-      context: .
-      dockerfile: php/Dockerfile
-    container_name: schema-backend
-    networks:
-      - internal
-    environment:
-      - TTRSS_DB_HOST=mysql-db
-      - TTRSS_DB_NAME=tt-rss
-      - TTRSS_DB_USER=root
-      - TTRSS_DB_PASS=securerootpassword
-      # - TTRSS_SELF_URL_PATH={$host}
-      - TTRSS_PHP_EXECUTABLE=php
-      - TTRSS_DB_TYPE=mysql
-      - TTRSS_DB_PORT=3306
-    command: ["php", "/app/update.php", "--update-schema=force-yes"]
-    volumes:
-      # - ./app/:/var/www/html/
-      - ./logs/php.log:/var/log/fpm-php.www.log
-    depends_on:
-      mysql-db:
-        condition: service_healthy
+  # schema-backend:
+  #   build:
+  #     context: .
+  #     dockerfile: php/Dockerfile
+  #   container_name: schema-backend
+  #   networks:
+  #     - internal
+  #   environment:
+  #     - TTRSS_DB_HOST=mysql-db
+  #     - TTRSS_DB_NAME=tt-rss
+  #     - TTRSS_DB_USER=root
+  #     - TTRSS_DB_PASS=securerootpassword
+  #     # - TTRSS_SELF_URL_PATH={$host}
+  #     - TTRSS_PHP_EXECUTABLE=php
+  #     - TTRSS_DB_TYPE=mysql
+  #     - TTRSS_DB_PORT=3306
+  #   command: ["php", "/app/update.php", "--update-schema=force-yes"]
+  #   volumes:
+  #     # - ./app/:/var/www/html/
+  #     - ./logs/php.log:/var/log/fpm-php.www.log
+  #   depends_on:
+  #     mysql-db:
+  #       condition: service_healthy
 
 # Scheduler Service
   scheduler:

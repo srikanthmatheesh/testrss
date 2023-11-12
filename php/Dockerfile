@@ -17,7 +17,3 @@ WORKDIR /app
 RUN rm -rf .git
 
 RUN chmod -R 0777 ./cache ./feed-icons ./lock
-
-RUN adduser -D --disabled-password --shell /bin/sh tt-rss
-
-USER ttrss
