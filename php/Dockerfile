@@ -10,9 +10,15 @@ RUN docker-php-ext-install mysqli pdo pdo_mysql \
     && docker-php-ext-configure pcntl --enable-pcntl \
     && docker-php-ext-install pcntl
 
+
 RUN git clone https://git.tt-rss.org/fox/tt-rss.git /app
 
 WORKDIR /app
 
 RUN rm -rf .git
+
 RUN chmod -R 0777 ./cache ./feed-icons ./lock
+
+RUN adduser -D ttrs
+
+USER ttrss
